@@ -1,0 +1,42 @@
+<div class="container">
+  <h1>{{ title }}</h1>
+
+  <form (ngSubmit)="onSubmit()" #orderForm="ngForm">
+    <div class="form-group">
+      <label for="customerName">Customer name:</label>
+      <input type="text" id="customerName" name="customerName" [(ngModel)]="orderRequest.customerName"
+        placeholder="Enter your name:" required class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="travelDistance">Travel distance in miles:</label>
+      <input type="number" id="travelDistance" name="travelDistance" [(ngModel)]="orderRequest.travelDistance"
+        placeholder="Enter the number of miles you will be traveling:" required class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="numberOfPassengers">Number of passengers:</label>
+      <input type="number" id="numberOfPassengers" name="numberOfPassengers"
+        [(ngModel)]="orderRequest.numberOfPassengers" placeholder="Enter the number of passengers for your trip:"
+        required class="form-control">
+    </div>
+    <button type="submit">Submit order</button>
+    <button type="button" class="clear-btn" (click)="clearForm()">Clear form</button>
+  </form>
+
+  <div *ngIf="isLoading" class="loading">
+    <p>processing order...</p>
+  </div>
+
+<div *ngIf="errorMessage" class="response error">
+  <h3>Error</h3>
+  <p>{{ errorMessage }}</p>
+</div>
+
+<div *ngIf="orderResponse" class="response success">
+  <h3>Order submitted successfully!</h3>
+  <div class="order-details">
+    <p><strong>Order ID:</strong> {{ orderResponse.orderId }}</p>
+    <p><strong>Customer Name:</strong> {{ orderResponse.customerName }}</p>
+    <p><strong>Travel Distance:</strong> {{ orderResponse.travelDistance }} miles</p>
+    <p><strong>Number of Passengers:</strong> {{ orderResponse.numberOfPassengers }}</p>
+    <p><strong>Total Price:</strong> ${{ orderResponse.totalPrice }}</p>
+</div>
